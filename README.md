@@ -37,9 +37,6 @@ python main.py delete 3
 
 ### 1. **Task Management**
 
-- **`Task` Class**
-  - Attributes: `title`, `description`, `due_date`, `status` (e.g., "Pending", "Completed").
-  - Magic Methods: `__str__` (human-readable format), `__repr__` (developer-friendly string).
 - **`PriorityTask` Class** (Inherits from `Task`)
   - Adds a `priority` attribute (e.g., "Low", "Medium", "High").
   - Overrides `__str__` to include priority information.
@@ -57,18 +54,12 @@ python main.py delete 3
     - Load tasks from JSON on startup.
   - Uses instance methods for core logic and class methods for file operations.
 
-### 3. **User Management**
-
-- **`User` Class**
-  - Attributes: `username`, `user_id`, and associated `TaskManager` instance.
-  - Encapsulates task management logic for a specific user.
-
-### 4. **JSON Storage**
+### 3. **JSON Storage**
 
 - Tasks are automatically saved to `tasks.json` after modifications.
 - Data is loaded from `tasks.json` when the application starts.
 
-### 5. **CLI Interface**
+### 4. **CLI Interface**
 
 - Interactive command-line interface with commands like:
   - `add`: Create a new task.
