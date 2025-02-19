@@ -6,26 +6,7 @@ Main purpose of the project is to learn python fundamentals.
 
 ## Features
 
-### Interaction Modes
-
-### 1. **REPL Mode (Default)**
-
-Run the application without arguments to enter an interactive shell:
-
-```bash
-python main.py
-```
-
-```shell
-> add "Buy groceries" "Milk and eggs" 2023-10-05
-> Task created with ID 1
-> list
-
-1. [Pending] Buy groceries (Due: 2023-10-05)
-> exit
-```
-
-### 2. **Command-Line Arguments Mode**
+### **Command-Line Arguments Mode**
 
 ```bash
 python main.py add "Write report" "Urgent project" 2023-10-07 --priority high
@@ -33,40 +14,13 @@ python main.py list --status pending
 python main.py delete 3
 ```
 
-## Core
-
-### 1. **Task Management**
-
-- **`PriorityTask` Class** (Inherits from `Task`)
-  - Adds a `priority` attribute (e.g., "Low", "Medium", "High").
-  - Overrides `__str__` to include priority information.
-
-### 2. **Task Manager**
-
-- **`TaskManager` Class**
-  - Handles CRUD operations:
-    - **Create**: Add new tasks (including priority tasks).
-    - **Read**: List all tasks, filter by status/priority, or view a specific task by ID.
-    - **Update**: Modify task attributes (e.g., mark as completed, change due date).
-    - **Delete**: Remove tasks by ID.
-  - Persistence:
-    - Save tasks to a JSON file (`tasks.json`).
-    - Load tasks from JSON on startup.
-  - Uses instance methods for core logic and class methods for file operations.
-
-### 3. **JSON Storage**
-
-- Tasks are automatically saved to `tasks.json` after modifications.
-- Data is loaded from `tasks.json` when the application starts.
-
-### 4. **CLI Interface**
+### **CLI Interface**
 
 - Interactive command-line interface with commands like:
   - `add`: Create a new task.
   - `list`: Display all tasks.
   - `update`: Modify a task by ID.
   - `delete`: Remove a task by ID.
-  - `save`/`load`: Manually trigger JSON persistence.
 
 ## Installation
 
@@ -78,8 +32,9 @@ python main.py delete 3
    ```
 
 2. **Run the application**
+
    ```bash
-   python main.py
+   python cli.py
    ```
 
 ## Usage examples
@@ -91,5 +46,3 @@ python main.py delete 3
 | `list`                                                  | List all tasks.           |
 | `update 1 --status completed`                           | Mark task 1 as completed. |
 | `delete 1`                                              | Delete task 1.            |
-| `save`                                                  | Force-save tasks to JSON. |
-| `exit`                                                  | Exit the application.     |
