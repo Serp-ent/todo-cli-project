@@ -100,4 +100,6 @@ class TaskManager:
         raise NotImplementedError()
 
     def delete(self, n) -> Task:
+        if n < 0 or len(self.tasks) <= n:
+            raise IndexError("Cannot delete Task (Index Out of Bounds)")
         return self.tasks.pop(n)
