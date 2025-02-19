@@ -14,6 +14,15 @@ def main():
     add_parser.add_argument("description", help="Task Title")
     add_parser.add_argument("due_date", help="Due date (YYYY-MM-DD)")
 
+    update_parser = subparsers.add_parser("update", help="Update task")
+    update_parser.add_argument("n", type=int, help="Task ID to update")
+    update_parser.add_argument("--title", help="New title for the task")
+    update_parser.add_argument("--description", help="New description for the task")
+    update_parser.add_argument("--due_date", help="New due date (YYYY-MM-DD)")
+    update_parser.add_argument(
+        "--status", choices=["active", "completed"], help="New status for the task"
+    )
+
     list_parser = subparsers.add_parser("list", help="Show all tasks")
     list_parser.add_argument(
         "--status", choices=["active", "completed"], help="Filter tasks by status"
@@ -22,10 +31,7 @@ def main():
     delete_parser = subparsers.add_parser("delete", help="Remove task")
     delete_parser.add_argument("task_id", type=int, help="Task ID to delete")
 
-    # TODO: other commands
-
     args = parser.parse_args()
-
     try:
         if args.command == "add":
             due_date = datetime.strptime(args.due_date, r"%Y-%m-%d")
@@ -47,6 +53,22 @@ def main():
                 print(
                     f"{i + 1}. {task.title} | Due: {task.due_date.date()} | Status: {task.status.value}"
                 )
+
+        elif args.command == "update":
+            task = manager.retrieve_task(args.n - 1)
+
+            if args.title:
+                task.title = args.title
+            if args.description:
+                task.description = args.description
+            if args.due_date:
+                task.due_date = datetime.strptime(args.due_date, r"%Y-%m-%d")
+            if args.status:
+                task.status = models.Task.Status.from_str(args.status.upper())
+
+            print(f"Updated task: {task.title}")
+
+            manager.save()
 
         elif args.command == "delete":
             deleted = manager.delete(args.task_id - 1)

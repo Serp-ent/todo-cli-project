@@ -15,7 +15,7 @@ class Task:
         def from_str(cls, value: str):
             """Converts string to corresponding enum value"""
             try:
-                return cls[value.upper()]
+                return cls[value.upper().removeprefix('STATUS.')]
             except KeyError:
                 raise ValueError(f"Invalid status value: {value}")
 
@@ -49,6 +49,8 @@ class Task:
             "title": self.title,
             "description": self.description,
             "due_date": str(self.due_date),
+            "status": str(self.status),
+            "created_at": str(self.created_at),
         }
 
 
@@ -95,9 +97,21 @@ class TaskManager:
             raise IndexError("Cannot retrieve Task (Index Out of Bounds)")
         return self.tasks[n]
 
-    def update(self, n) -> Task:
-        # TODO:
-        raise NotImplementedError()
+    def update(self, n, title=None, description=None, due_date=None) -> Task:
+        """Update the task at index n with new values for title, description, or due_date"""
+        if n < 0 or len(self.tasks) <= n:
+            raise IndexError("Cannot update Task (Index Out of Bounds)")
+
+        task = self.tasks[n]
+
+        if title is not None:
+            task.title = title
+        if description is not None:
+            task.description = description
+        if due_date is not None:
+            task.due_date = due_date
+
+        return task
 
     def delete(self, n) -> Task:
         if n < 0 or len(self.tasks) <= n:
